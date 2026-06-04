@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BiBi Chinese 中文 ~~加油~</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Be+Vietnam+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--red:#c0272d;--green:#1a5c2a;--gold:#e6a817;--cream:#fdf8f0;--red-l:#f5e6e6;--green-l:#e8f5eb;--gold-l:#fdf3d7}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Be Vietnam Pro',sans-serif;background:var(--cream);color:#333}
+.header{background:var(--red);padding:.875rem 1.5rem;display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:8px}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-icon{width:40px;height:40px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--red);font-size:18px;font-family:'Noto Serif SC',serif;font-weight:700}
+.logo-text{font-size:16px;font-weight:600;color:#fff}
+.logo-sub{font-size:11px;color:rgba(255,255,255,.75)}
+.nav{display:flex;gap:3px;flex-wrap:wrap}
+.nav-btn{padding:6px 12px;border-radius:6px;border:1px solid rgba(255,255,255,.35);background:transparent;cursor:pointer;font-size:12px;color:rgba(255,255,255,.9);font-family:'Be Vietnam Pro',sans-serif;transition:all .15s}
+.nav-btn:hover{background:rgba(255,255,255,.15)}
+.nav-btn.active{background:#fff;color:var(--red);font-weight:600}
+.main{max-width:1100px;margin:0 auto;padding:1.25rem 1.25rem}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.25rem}
+@media(max-width:600px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat-card{border-radius:8px;padding:.875rem;border:0.5px solid}
+.s-r{background:var(--red-l);border-color:#e8b0b0}
+.s-g{background:var(--green-l);border-color:#b0d9ba}
+.s-go{background:var(--gold-l);border-color:#f0d080}
+.stat-label{font-size:11px;color:#666;margin-bottom:3px}
+.stat-val{font-size:20px;font-weight:600}
+.pb{height:3px;background:rgba(0,0,0,.08);border-radius:2px;margin-top:6px;overflow:hidden}
+.pb-r{height:100%;background:var(--red);border-radius:2px}
+.pb-g{height:100%;background:var(--green);border-radius:2px}
+.pb-go{height:100%;background:var(--gold);border-radius:2px}
+.page{display:none}.page.active{display:block}
+.sec-title{font-size:14px;font-weight:600;color:var(--green);margin-bottom:10px;border-left:4px solid var(--red);padding-left:10px}
+.tabs{display:flex;gap:3px;flex-wrap:wrap;border-bottom:2px solid var(--gold);margin-bottom:1rem}
+.tab{padding:7px 12px;font-size:12px;cursor:pointer;color:#666;border-bottom:2px solid transparent;margin-bottom:-2px;background:none;border-top:none;border-left:none;border-right:none;white-space:nowrap;font-family:'Be Vietnam Pro',sans-serif;transition:all .15s}
+.tab.active{color:var(--red);border-bottom-color:var(--red);font-weight:600}
+/* VOCAB TABLE */
+.vocab-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:1rem}
+.vocab-table th{background:var(--green);color:#fff;padding:9px 10px;text-align:left;font-weight:600}
+.vocab-table td{padding:8px 10px;border-bottom:0.5px solid #e0d0b0;vertical-align:middle}
+.vocab-table tr:nth-child(even) td{background:var(--gold-l)}
+.vocab-table tr:hover td{background:var(--red-l)}
+.zh{font-size:18px;font-weight:700;color:var(--green);font-family:'Noto Serif SC',serif}
+.py{font-size:11px;color:var(--red);font-weight:600;display:block;margin-top:2px}
+.doc-read{font-size:11px;color:#888;font-style:italic}
+.speak-btn{background:none;border:1px solid var(--gold);border-radius:20px;padding:3px 10px;cursor:pointer;font-size:12px;color:var(--green);transition:all .15s;white-space:nowrap}
+.speak-btn:hover{background:var(--gold);color:#fff}
+/* LESSONS */
+.lesson-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:1rem}
+@media(max-width:500px){.lesson-grid{grid-template-columns:1fr}}
+.lesson-card{background:#fff;border:0.5px solid #e0d0b0;border-radius:10px;padding:1rem;cursor:pointer;transition:all .2s;border-top:3px solid var(--gold)}
+.lesson-card:hover{border-color:var(--red);transform:translateY(-2px)}
+.lesson-no{font-size:11px;color:var(--red);font-weight:600;margin-bottom:3px}
+.lesson-title{font-size:13px;font-weight:600;color:var(--green)}
+.lesson-sub{font-size:11px;color:#888;margin-top:2px}
+/* DIALOG */
+.dialog-box{background:#fff;border:0.5px solid #e0d0b0;border-radius:12px;padding:1.25rem;display:flex;flex-direction:column;gap:10px;border-top:3px solid var(--red);margin-bottom:1rem}
+.dialog-row{display:flex;gap:8px;align-items:flex-start}
+.dialog-row.r{flex-direction:row-reverse}
+.av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0}
+.av-a{background:var(--red);color:#fff}
+.av-b{background:var(--green);color:#fff}
+.bbl{padding:7px 12px;border-radius:14px;max-width:85%}
+.bbl-a{background:var(--red);color:#fff;border-bottom-left-radius:3px}
+.bbl-b{background:var(--green-l);color:var(--green);border-bottom-right-radius:3px;border:0.5px solid #b0d9ba}
+.bbl-zh{font-size:14px;font-weight:600;font-family:'Noto Serif SC',serif}
+.bbl-py{font-size:10px;margin-top:2px;opacity:.8}
+.bbl-vi{font-size:11px;margin-top:3px;opacity:.85}
+.bbl-speak{background:none;border:none;cursor:pointer;font-size:14px;opacity:.7;padding:0;margin-top:3px}
+/* QUIZ */
+.quiz-box{background:#fff;border:0.5px solid #e0d0b0;border-radius:12px;padding:1.25rem;margin-bottom:1rem}
+.quiz-question{font-size:16px;font-weight:600;color:var(--green);font-family:'Noto Serif SC',serif;margin-bottom:1rem;text-align:center;padding:1rem;background:var(--green-l);border-radius:8px}
+.quiz-py{font-size:13px;color:var(--red);text-align:center;margin-bottom:1rem}
+.quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.quiz-opt{padding:10px 14px;border:1.5px solid #e0d0b0;border-radius:8px;cursor:pointer;font-size:13px;text-align:center;transition:all .15s;background:#fff;font-family:'Be Vietnam Pro',sans-serif}
+.quiz-opt:hover{border-color:var(--gold);background:var(--gold-l)}
+.quiz-opt.correct{border-color:var(--green);background:var(--green-l);color:var(--green);font-weight:600}
+.quiz-opt.wrong{border-color:var(--red);background:var(--red-l);color:var(--red)}
+.quiz-result{text-align:center;padding:.75rem;border-radius:8px;margin-top:1rem;font-weight:600;font-size:14px}
+.quiz-score{text-align:center;margin-bottom:1rem}
+.quiz-score span{font-size:20px;font-weight:600;color:var(--red)}
+.quiz-progress{font-size:12px;color:#888;text-align:center;margin-bottom:.75rem}
+/* FLASHCARD */
+.fc-wrap{display:flex;flex-direction:column;align-items:center;gap:.875rem}
+.fc{width:100%;max-width:400px;background:#fff;border:2px solid var(--gold);border-radius:16px;padding:1.75rem;text-align:center;min-height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer;border-top:5px solid var(--red);transition:all .2s}
+.fc:hover{transform:translateY(-3px)}
+.fc-zh{font-size:48px;font-weight:700;color:var(--green);font-family:'Noto Serif SC',serif}
+.fc-py{font-size:16px;color:var(--red);font-weight:600}
+.fc-vi{font-size:14px;color:#444}
+.fc-doc{font-size:12px;color:#888;font-style:italic}
+.hidden{display:none}
+.fc-btns{display:flex;gap:10px}
+.fc-btn{padding:8px 20px;border-radius:8px;border:2px solid;background:transparent;font-size:13px;cursor:pointer;font-weight:600;font-family:'Be Vietnam Pro',sans-serif}
+.fc-btn.ok{border-color:var(--green);color:var(--green)}
+.fc-btn.no{border-color:var(--red);color:var(--red)}
+.fc-prog{font-size:11px;color:#888;background:var(--gold-l);padding:4px 14px;border-radius:20px;border:0.5px solid var(--gold)}
+/* STRUCT */
+.struct-box{background:#fff;border:0.5px solid #e0d0b0;border-radius:10px;padding:1rem;margin-bottom:10px;border-left:4px solid var(--gold)}
+.struct-title{font-size:12px;font-weight:600;color:var(--red);margin-bottom:5px}
+.struct-content{font-size:15px;color:var(--green);font-weight:600;font-family:'Noto Serif SC',serif;margin-bottom:4px}
+.struct-vi{font-size:12px;color:#555}
+.struct-ex{font-size:12px;color:#888;margin-top:5px;border-top:0.5px solid #eee;padding-top:5px;font-style:italic}
+.btn-p{padding:8px 20px;background:var(--red);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;font-weight:600;font-family:'Be Vietnam Pro',sans-serif}
+.btn-p:hover{background:#a01f24}
+.center{text-align:center;margin-top:1rem}
+footer{background:var(--green);color:#fff;text-align:center;padding:1rem;font-size:12px;margin-top:2rem}
+footer span{color:var(--gold)}
+.badge{display:inline-block;font-size:10px;padding:2px 8px;border-radius:20px;background:var(--gold-l);color:var(--green);border:0.5px solid var(--gold);margin-bottom:3px}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="logo">
+    <div class="logo-icon">汉</div>
+    <div>
+      <div class="logo-text">BiBi Chinese 中文 ~~加油~</div>
+      <div class="logo-sub">Chơn Thành, Bình Phước · 平福省，真诚市</div>
+    </div>
+  </div>
+  <div class="nav">
+    <button class="nav-btn active" onclick="showPage('lessons',this)">📚 Bài học</button>
+    <button class="nav-btn" onclick="showPage('vocab',this)">📖 Từ vựng</button>
+    <button class="nav-btn" onclick="showPage('dialog',this)">💬 Hội thoại</button>
+    <button class="nav-btn" onclick="showPage('struct',this)">📐 Cấu trúc</button>
+    <button class="nav-btn" onclick="showPage('flash',this)">🃏 Flashcard</button>
+    <button class="nav-btn" onclick="showPage('quiz',this)">✏️ Trắc nghiệm</button>
+  </div>
+</div>
+
+<div class="main">
+  <div class="stats">
+    <div class="stat-card s-r"><div class="stat-label">Tổng bài học</div><div class="stat-val" style="color:var(--red)">10 bài</div><div class="pb"><div class="pb-r" style="width:100%"></div></div></div>
+    <div class="stat-card s-g"><div class="stat-label">Từ vựng giáo trình</div><div class="stat-val" style="color:var(--green)">200+</div><div class="pb"><div class="pb-g" style="width:80%"></div></div></div>
+    <div class="stat-card s-go"><div class="stat-label">Hội thoại mẫu</div><div class="stat-val" style="color:var(--gold)">100+</div><div class="pb"><div class="pb-go" style="width:75%"></div></div></div>
+    <div class="stat-card s-r"><div class="stat-label">Bài tập trắc nghiệm</div><div class="stat-val" style="color:var(--red)">20+</div><div class="pb"><div class="pb-r" style="width:60%"></div></div></div>
+  </div>
+
+  <!-- LESSONS -->
+  <div id="page-lessons" class="page active">
+    <div class="sec-title">Danh sách bài học — 课程列表</div>
+    <div class="lesson-grid">
+      <div class="lesson-card"><div class="lesson-no">第一课 · Bài 1</div><div class="lesson-title">Phiên âm & Thanh điệu</div><div class="lesson-sub">23 thanh mẫu · 36 vận mẫu · 4 thanh điệu</div></div>
+      <div class="lesson-card"><div class="lesson-no">第二课 · Bài 2</div><div class="lesson-title">你好 — Xin chào</div><div class="lesson-sub">20 từ mới · Đại từ · Hỏi tên họ</div></div>
+      <div class="lesson-card"><div class="lesson-no">第三课 · Bài 3</div><div class="lesson-title">上班/上课 — Đi làm/Đi học</div><div class="lesson-sub">20 từ mới · Có/không · Đi đâu</div></div>
+      <div class="lesson-card"><div class="lesson-no">第四课 · Bài 4</div><div class="lesson-title">学习 — Học tập</div><div class="lesson-sub">20 từ mới · Tiếng Trung · Địa điểm</div></div>
+      <div class="lesson-card"><div class="lesson-no">第五课 · Bài 5</div><div class="lesson-title">年龄 — Tuổi tác</div><div class="lesson-sub">22 từ mới · Hỏi tuổi · Ngày tháng</div></div>
+      <div class="lesson-card"><div class="lesson-no">第六课 · Bài 6</div><div class="lesson-title">数字 — Số đếm</div><div class="lesson-sub">0-tỷ · Tiền tệ · Đơn vị</div></div>
+      <div class="lesson-card"><div class="lesson-no">第七课 · Bài 7</div><div class="lesson-title">时间 — Thời gian</div><div class="lesson-sub">20 từ mới · Giờ phút · Ngày tháng năm</div></div>
+      <div class="lesson-card"><div class="lesson-no">第八课 · Bài 8</div><div class="lesson-title">星期 — Thứ trong tuần</div><div class="lesson-sub">28 từ mới · Thứ 2-CN · SĐT · Sinh nhật</div></div>
+      <div class="lesson-card"><div class="lesson-no">第九课 · Bài 9</div><div class="lesson-title">工作职务 — Công việc</div><div class="lesson-sub">50 từ mới · Chức vụ · Bộ phận · Nhà máy</div></div>
+      <div class="lesson-card"><div class="lesson-no">第十课 · Bài 10</div><div class="lesson-title">综合词汇 — Từ vựng tổng hợp</div><div class="lesson-sub">31 từ mới · Đơn hàng · Phép nghỉ · Liên từ</div></div>
+    </div>
+  </div>
+
+  <!-- VOCAB -->
+  <div id="page-vocab" class="page">
+    <div class="sec-title">Từ vựng đầy đủ — 完整词汇表 <small style="color:#888;font-weight:400">(🔊 nhấn để nghe phát âm)</small></div>
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab(this,'v2')">Bài 2</button>
+      <button class="tab" onclick="switchTab(this,'v3')">Bài 3</button>
+      <button class="tab" onclick="switchTab(this,'v4')">Bài 4</button>
+      <button class="tab" onclick="switchTab(this,'v5')">Bài 5</button>
+      <button class="tab" onclick="switchTab(this,'v7')">Bài 7</button>
+      <button class="tab" onclick="switchTab(this,'v8')">Bài 8</button>
+      <button class="tab" onclick="switchTab(this,'v9')">Bài 9</button>
+      <button class="tab" onclick="switchTab(this,'v10')">Bài 10</button>
+    </div>
+    <div id="tab-v2"><table class="vocab-table"><thead><tr><th>#</th><th>汉字 & Pinyin</th><th>Tiếng Việt</th><th>Cách đọc</th><th>🔊</th></tr></thead><tbody id="tbody-v2"></tbody></table></div>
+    <div id="tab-v3" style="display:none"><table class="vocab-table"><thead><tr><th>#</th><th>汉字 & Pinyin</th><th>Tiếng Việt</th><th>Cách đọc</th><th>🔊</th></tr></thead><tbody id="tbody-v3"></tbody></table></div>
+    <div id="tab-v4" style="display:none"><table class="vocab-table"><thead><tr><th>#</th><th>汉字 & Pinyin</th><th>Tiếng Việt</th><th>Cách đọc</th><th>🔊</th></tr></thead><tbody id="tbody-v4"></tbody></table></div>
+    <div id="tab-v5" style="display:none"><table class="vocab-table"><thead><tr><th>#</th><th>汉字 & Pinyin</th><th>Tiếng Việt</th><th>Cách đọc</th><th>🔊</th></tr></thead><tbody id="tbody-v5"></tbody></table></div>
+    <div id="tab-v7" style="display:none"><table class="vocab-table"><thead><tr><th>#</th><th>汉字 & Pinyin</th><th>Tiếng Việt</th><th>Cách đọc</th><th>🔊</th></tr></thead><tbody id="tbody-v7"></tbody></table></div>
+    <div id="tab-v8" style="display:none"><table class="vocab-table"><thead><tr><th>#</th><th>汉字 & Pinyin</th><th>Tiếng Việt</th><th>Cách đọc</th><th>🔊</th></tr></thead><tbody id="tbody-v8"></tbody></table></div>
+    <div id="tab-v9" style="display:none"><table class="vocab-table"><thead><tr><th>#</th><th>汉字 & Pinyin</th><th>Tiếng Việt</th><th>Cách đọc</th><th>🔊</th></tr></thead><tbody id="tbody-v9"></tbody></table></div>
+    <div id="tab-v10" style="display:none"><table class="vocab-table"><thead><tr><th>#</th><th>汉字 & Pinyin</th><th>Tiếng Việt</th><th>Cách đọc</th><th>🔊</th></tr></thead><tbody id="tbody-v10"></tbody></table></div>
+  </div>
+
+  <!-- DIALOG -->
+  <div id="page-dialog" class="page">
+    <div class="sec-title">Hội thoại thực tế — 会话练习</div>
+    <div class="tabs">
+      <button class="tab active" onclick="switchDialog(this,'d1')">Xin chào</button>
+      <button class="tab" onclick="switchDialog(this,'d2')">Đi làm & Tăng ca</button>
+      <button class="tab" onclick="switchDialog(this,'d3')">Hỏi giờ & Ngày</button>
+      <button class="tab" onclick="switchDialog(this,'d4')">Công việc</button>
+      <button class="tab" onclick="switchDialog(this,'d5')">Học tiếng Trung</button>
+    </div>
+    <div id="d1" class="dialog-box"></div>
+    <div id="d2" class="dialog-box" style="display:none"></div>
+    <div id="d3" class="dialog-box" style="display:none"></div>
+    <div id="d4" class="dialog-box" style="display:none"></div>
+    <div id="d5" class="dialog-box" style="display:none"></div>
+  </div>
+
+  <!-- STRUCT -->
+  <div id="page-struct" class="page">
+    <div class="sec-title">Cấu trúc câu quan trọng — 重要句型</div>
+    <div id="struct-list"></div>
+  </div>
+
+  <!-- FLASHCARD -->
+  <div id="page-flash" class="page">
+    <div class="sec-title">Luyện Flashcard — 加油！</div>
+    <div class="tabs">
+      <button class="tab active" onclick="loadFC('all',this)">Tất cả</button>
+      <button class="tab" onclick="loadFC('b2',this)">Bài 2</button>
+      <button class="tab" onclick="loadFC('b3',this)">Bài 3</button>
+      <button class="tab" onclick="loadFC('b9',this)">Bài 9</button>
+    </div>
+    <div class="fc-wrap">
+      <div class="fc-prog" id="fc-prog">Thẻ 1/1</div>
+      <div class="fc" onclick="revealCard()">
+        <div class="fc-zh" id="fc-zh">-</div>
+        <div class="fc-py" id="fc-py">-</div>
+        <div class="fc-vi hidden" id="fc-vi">-</div>
+        <div class="fc-doc hidden" id="fc-doc">-</div>
+        <div style="font-size:11px;color:#bbb;margin-top:6px" id="fc-hint">👆 Nhấn để xem nghĩa</div>
+        <button class="speak-btn hidden" id="fc-speak" onclick="event.stopPropagation();speak(document.getElementById('fc-zh').textContent)">🔊 Nghe</button>
+      </div>
+      <div class="fc-btns hidden" id="fc-btns">
+        <button class="fc-btn no" onclick="nextCard(false)">Chưa nhớ ✗</button>
+        <button class="fc-btn ok" onclick="nextCard(true)">Đã nhớ ✓</button>
+      </div>
+      <div style="font-size:12px;color:#888" id="fc-score">Đúng: 0 | Sai: 0</div>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="page-quiz" class="page">
+    <div class="sec-title">Bài tập trắc nghiệm — 练习测验</div>
+    <div class="tabs">
+      <button class="tab active" onclick="loadQuiz('all',this)">Tất cả</button>
+      <button class="tab" onclick="loadQuiz('b2',this)">Bài 2</button>
+      <button class="tab" onclick="loadQuiz('b3',this)">Bài 3</button>
+      <button class="tab" onclick="loadQuiz('b9',this)">Bài 9</button>
+    </div>
+    <div class="quiz-score">Điểm: <span id="quiz-score-val">0</span> / <span id="quiz-total-val">0</span></div>
+    <div class="quiz-progress" id="quiz-prog">Câu 1/1</div>
+    <div class="quiz-box">
+      <div class="quiz-question" id="quiz-q">-</div>
+      <div class="quiz-py" id="quiz-py"></div>
+      <div class="quiz-opts" id="quiz-opts"></div>
+      <div class="quiz-result hidden" id="quiz-result"></div>
+    </div>
+    <div class="center">
+      <button class="btn-p" onclick="nextQuiz()">Câu tiếp theo →</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p><span>BiBi Chinese 中文</span> · Chơn Thành, Bình Phước · 平福省，真诚市</p>
+  <p style="margin-top:4px;opacity:.7">Giáo viên: 何玉碧 (Bi) · ~~加油~~ 💪</p>
+</footer>
+
+<script>
+// ===== DATA =====
+const vocabData = {
+  b2:[
+    {zh:'我',py:'wǒ',vi:'Tôi, tao, tớ',doc:'Quò'},
+    {zh:'你',py:'nǐ',vi:'Bạn, mày, cậu',doc:'Nĩ'},
+    {zh:'他',py:'tā',vi:'Anh ấy (nam)',doc:'Tha'},
+    {zh:'她',py:'tā',vi:'Cô ấy (nữ)',doc:'Tha'},
+    {zh:'它',py:'tā',vi:'Nó (đồ vật)',doc:'Tha'},
+    {zh:'我们',py:'wǒ men',vi:'Chúng tôi',doc:'Quò mân'},
+    {zh:'你们',py:'nǐ men',vi:'Các bạn',doc:'Nĩ mân'},
+    {zh:'大家',py:'dà jiā',vi:'Mọi người',doc:'Ta cha'},
+    {zh:'叫',py:'jiào',vi:'Tên là, gọi',doc:'Cheo'},
+    {zh:'什么',py:'shén me',vi:'Gì, cái gì',doc:'Sẩn mơ'},
+    {zh:'名字',py:'míng zì',vi:'Tên',doc:'Mỉng chư'},
+    {zh:'姓',py:'xìng',vi:'Họ (của mình)',doc:'Xinh'},
+    {zh:'请问',py:'qǐng wèn',vi:'Xin hỏi',doc:'Chĩnh quân'},
+    {zh:'很',py:'hěn',vi:'Rất, lắm',doc:'Hẩn'},
+    {zh:'认识',py:'rèn shi',vi:'Quen biết',doc:'Rân sư'},
+    {zh:'高兴',py:'gāo xìng',vi:'Vui mừng',doc:'Cao xinh'},
+    {zh:'贵姓',py:'guì xìng',vi:'Quý danh (Họ)',doc:'Cuây xinh'},
+    {zh:'好',py:'hǎo',vi:'Tốt, khỏe',doc:'Hạo'},
+    {zh:'呢',py:'ne',vi:'Thì sao?',doc:'Nớ'},
+    {zh:'很高兴认识你',py:'hěn gāo xìng rèn shi nǐ',vi:'Rất vui được quen biết bạn',doc:'Hần cao xinh rân sư nì'},
+  ],
+  b3:[
+    {zh:'上课',py:'shàng kè',vi:'Lên lớp',doc:'Sang khơ'},
+    {zh:'下课',py:'xià kè',vi:'Tan học',doc:'Xa khơ'},
+    {zh:'老师',py:'lǎo shī',vi:'Giáo viên',doc:'Lão sư'},
+    {zh:'学生',py:'xué shēng',vi:'Học sinh',doc:'Xuể sâng'},
+    {zh:'来',py:'lái',vi:'Lại, đến',doc:'Lải'},
+    {zh:'有',py:'yǒu',vi:'Có',doc:'Dầu'},
+    {zh:'没有',py:'méi yǒu',vi:'Không có',doc:'Mẩy dầu'},
+    {zh:'不',py:'bù',vi:'Không',doc:'Bu'},
+    {zh:'也',py:'yě',vi:'Cũng',doc:'Dẽ'},
+    {zh:'去',py:'qù',vi:'Đi',doc:'Chuy'},
+    {zh:'了',py:'le',vi:'Rồi',doc:'Lơ'},
+    {zh:'上班',py:'shàng bān',vi:'Đi làm, lên ca',doc:'Sang ban'},
+    {zh:'下班',py:'xià bān',vi:'Tan ca, xuống ca',doc:'Xa ban'},
+    {zh:'加班',py:'jiā bān',vi:'Tăng ca',doc:'Cha ban'},
+    {zh:'白班',py:'bái bān',vi:'Ca ngày',doc:'Bải ban'},
+    {zh:'夜班',py:'yè bān',vi:'Ca đêm',doc:'De ban'},
+    {zh:'哪里',py:'nǎ lǐ',vi:'Ở đâu?',doc:'Nả lì'},
+    {zh:'都',py:'dōu',vi:'Đều',doc:'Tâu'},
+    {zh:'不知道',py:'bù zhī dào',vi:'Không biết',doc:'Bu trư tao'},
+    {zh:'在',py:'zài',vi:'Ở, đang',doc:'Chai'},
+  ],
+  b4:[
+    {zh:'现在',py:'xiàn zài',vi:'Bây giờ, hiện tại',doc:'Xen chai'},
+    {zh:'附近',py:'fù jìn',vi:'Gần đây',doc:'Phu chin'},
+    {zh:'还是',py:'hái shì',vi:'Hay là',doc:'Hải sư'},
+    {zh:'还没',py:'hái méi',vi:'Vẫn chưa',doc:'Hải mẩy'},
+    {zh:'公司',py:'gōng sī',vi:'Công ty',doc:'Cung sư'},
+    {zh:'工业区',py:'gōng yè qū',vi:'Khu công nghiệp',doc:'Cung de chuy'},
+    {zh:'明城',py:'míng chéng',vi:'Minh Thành',doc:'Mỉnh chẩng'},
+    {zh:'明兴',py:'míng xīng',vi:'Minh Hưng',doc:'Mỉnh xinh'},
+    {zh:'真城',py:'zhēn chéng',vi:'Chơn Thành',doc:'Trân chẩng'},
+    {zh:'中文',py:'zhōng wén',vi:'Tiếng Trung',doc:'Trung quẩn'},
+    {zh:'越南语',py:'yuè nán yǔ',vi:'Tiếng Việt',doc:'Duê nản dụy'},
+    {zh:'英文',py:'yīng wén',vi:'Tiếng Anh',doc:'Ding quẩn'},
+    {zh:'汉字',py:'hàn zì',vi:'Chữ Hán',doc:'Han chư'},
+    {zh:'听',py:'tīng',vi:'Nghe',doc:'Thinh'},
+    {zh:'说',py:'shuō',vi:'Nói',doc:'Sua'},
+    {zh:'读',py:'dú',vi:'Đọc',doc:'Tủ'},
+    {zh:'写',py:'xiě',vi:'Viết',doc:'Xịa'},
+    {zh:'难',py:'nán',vi:'Khó',doc:'Nản'},
+    {zh:'学习',py:'xué xí',vi:'Học tập',doc:'Xuể xỉ'},
+    {zh:'会',py:'huì',vi:'Biết (kỹ năng)',doc:'Huây'},
+  ],
+  b5:[
+    {zh:'岁',py:'suì',vi:'Tuổi',doc:'Suây'},
+    {zh:'介绍',py:'jiè shào',vi:'Giới thiệu',doc:'Che sao'},
+    {zh:'自己',py:'zì jǐ',vi:'Tự mình',doc:'Chư chị'},
+    {zh:'今年',py:'jīn nián',vi:'Năm nay',doc:'Chin nẻn'},
+    {zh:'今天',py:'jīn tiān',vi:'Hôm nay',doc:'Chin then'},
+    {zh:'明天',py:'míng tiān',vi:'Ngày mai',doc:'Mỉnh then'},
+    {zh:'昨天',py:'zuó tiān',vi:'Hôm qua',doc:'Chủa then'},
+    {zh:'后天',py:'hòu tiān',vi:'Ngày mốt',doc:'Hâu then'},
+    {zh:'前天',py:'qián tiān',vi:'Hôm kia',doc:'Chẻn then'},
+    {zh:'多大',py:'duō dà',vi:'Bao nhiêu tuổi',doc:'Tua ta'},
+    {zh:'多少',py:'duō shǎo',vi:'Bao nhiêu (số lớn)',doc:'Tua sào'},
+    {zh:'几',py:'jǐ',vi:'Mấy (số nhỏ)',doc:'Chị'},
+    {zh:'懂',py:'dǒng',vi:'Hiểu',doc:'Tùng'},
+    {zh:'走',py:'zǒu',vi:'Đi bộ, rời đi',doc:'Chầu'},
+    {zh:'到',py:'dào',vi:'Đến, tới',doc:'Tao'},
+    {zh:'和',py:'hé',vi:'Và, với',doc:'Hở'},
+    {zh:'跟',py:'gēn',vi:'Theo, cùng với',doc:'Cân'},
+    {zh:'多',py:'duō',vi:'Nhiều',doc:'Tua'},
+    {zh:'少',py:'shǎo',vi:'Ít',doc:'Sào'},
+    {zh:'好的',py:'hǎo de',vi:'Ok, được rồi',doc:'Hào tơ'},
+    {zh:'要',py:'yào',vi:'Cần, muốn',doc:'Dao'},
+    {zh:'大',py:'dà',vi:'To, lớn',doc:'Ta'},
+  ],
+  b7:[
+    {zh:'年',py:'nián',vi:'Năm',doc:'Nẻn'},
+    {zh:'月',py:'yuè',vi:'Tháng',doc:'Duê'},
+    {zh:'日',py:'rì',vi:'Ngày (văn viết)',doc:'Rư'},
+    {zh:'号',py:'hào',vi:'Ngày (văn nói)',doc:'Hao'},
+    {zh:'天',py:'tiān',vi:'Ngày (định lượng)',doc:'Then'},
+    {zh:'凌晨',py:'líng chén',vi:'Sáng sớm, hừng đông',doc:'Lỉn chẩn'},
+    {zh:'早上',py:'zǎo shàng',vi:'Buổi sáng sớm',doc:'Chào sang'},
+    {zh:'上午',py:'shàng wǔ',vi:'Buổi sáng',doc:'Sang ù'},
+    {zh:'中午',py:'zhōng wǔ',vi:'Buổi trưa',doc:'Trung ù'},
+    {zh:'下午',py:'xià wǔ',vi:'Buổi chiều',doc:'Xa ù'},
+    {zh:'晚上',py:'wǎn shàng',vi:'Buổi tối',doc:'Quàn sang'},
+    {zh:'点',py:'diǎn',vi:'Giờ',doc:'Tèn'},
+    {zh:'分钟',py:'fēn zhōng',vi:'Phút',doc:'Phân trung'},
+    {zh:'秒',py:'miǎo',vi:'Giây',doc:'Mèo'},
+    {zh:'小时',py:'xiǎo shí',vi:'Tiếng đồng hồ',doc:'Xèo sử'},
+    {zh:'什么时候',py:'shénme shí hòu',vi:'Khi nào, lúc nào',doc:'Sẩn mơ sử hâu'},
+    {zh:'时间',py:'shí jiān',vi:'Thời gian',doc:'Sử chen'},
+    {zh:'半',py:'bàn',vi:'Rưỡi, nửa',doc:'Ban'},
+    {zh:'刻',py:'kè',vi:'Khắc (15 phút)',doc:'Khơ'},
+    {zh:'差',py:'chā',vi:'Kém',doc:'Cha'},
+  ],
+  b8:[
+    {zh:'星期',py:'xīng qī',vi:'Tuần, thứ',doc:'Xinh chi'},
+    {zh:'周末',py:'zhōu mò',vi:'Cuối tuần',doc:'Trâu mo'},
+    {zh:'星期一',py:'xīng qī yī',vi:'Thứ hai',doc:'Xinh chi y'},
+    {zh:'星期二',py:'xīng qī èr',vi:'Thứ ba',doc:'Xinh chi ơ'},
+    {zh:'星期三',py:'xīng qī sān',vi:'Thứ tư',doc:'Xinh chi san'},
+    {zh:'星期四',py:'xīng qī sì',vi:'Thứ năm',doc:'Xinh chi sư'},
+    {zh:'星期五',py:'xīng qī wǔ',vi:'Thứ sáu',doc:'Xinh chi ù'},
+    {zh:'星期六',py:'xīng qī liù',vi:'Thứ bảy',doc:'Xinh chi liu'},
+    {zh:'星期天',py:'xīng qī tiān',vi:'Chủ nhật',doc:'Xinh chi then'},
+    {zh:'谁',py:'shéi',vi:'Ai',doc:'Sẩy'},
+    {zh:'生日',py:'shēng rì',vi:'Sinh nhật',doc:'Sâng rư'},
+    {zh:'出生',py:'chū shēng',vi:'Sinh ra',doc:'Chu sâng'},
+    {zh:'号码',py:'hào mǎ',vi:'Số, mã số',doc:'Hao mạ'},
+    {zh:'电话',py:'diàn huà',vi:'Điện thoại',doc:'Ten hoa'},
+    {zh:'手机',py:'shǒu jī',vi:'Điện thoại di động',doc:'Sầu chi'},
+    {zh:'朋友',py:'péng yǒu',vi:'Bạn, bạn bè',doc:'Phẩng dầu'},
+    {zh:'同学',py:'tóng xué',vi:'Bạn học',doc:'Thủng xuể'},
+    {zh:'同事',py:'tóng shì',vi:'Đồng nghiệp',doc:'Thủng sư'},
+    {zh:'怎么',py:'zěn me',vi:'Sao, thế nào',doc:'Chần mơ'},
+    {zh:'怎么样',py:'zěn me yàng',vi:'Như thế nào',doc:'Chần mơ dang'},
+    {zh:'再见',py:'zài jiàn',vi:'Tạm biệt',doc:'Chai chen'},
+    {zh:'先生',py:'xiān shēng',vi:'Ông, ngài',doc:'Xen sâng'},
+  ],
+  b9:[
+    {zh:'工作',py:'gōng zuò',vi:'Làm việc',doc:'Cung chua'},
+    {zh:'做',py:'zuò',vi:'Làm',doc:'Chua'},
+    {zh:'部门',py:'bù mén',vi:'Bộ phận',doc:'Bu mẩn'},
+    {zh:'负责',py:'fù zé',vi:'Phụ trách',doc:'Phu trỡ'},
+    {zh:'员工',py:'yuán gōng',vi:'Công nhân',doc:'Duản cung'},
+    {zh:'老板',py:'lǎo bǎn',vi:'Ông chủ',doc:'Lão bàn'},
+    {zh:'总经理',py:'zǒng jīng lǐ',vi:'Tổng giám đốc',doc:'Trùng chinh lị'},
+    {zh:'经理',py:'jīng lǐ',vi:'Giám đốc',doc:'Chinh lị'},
+    {zh:'主管',py:'zhǔ guǎn',vi:'Chủ quản',doc:'Trủ cuản'},
+    {zh:'管理',py:'guǎn lǐ',vi:'Quản lý',doc:'Cuản lì'},
+    {zh:'组长',py:'zǔ zhǎng',vi:'Tổ trưởng',doc:'Trủ trằng'},
+    {zh:'班长',py:'bān zhǎng',vi:'Nhóm trưởng',doc:'Ban trằng'},
+    {zh:'保安',py:'bǎo àn',vi:'Bảo vệ',doc:'Bào an'},
+    {zh:'财务',py:'cái wù',vi:'Tài vụ',doc:'Chsãi u'},
+    {zh:'采购',py:'cǎi gòu',vi:'Thu mua',doc:'Chsài câu'},
+    {zh:'会计',py:'kuài jì',vi:'Kế toán',doc:'Khoai chi'},
+    {zh:'人事',py:'rén shì',vi:'Nhân sự',doc:'Rẩn sư'},
+    {zh:'仓库',py:'cāng kù',vi:'Kho hàng',doc:'Chsang khu'},
+    {zh:'生产',py:'shēng chǎn',vi:'Sản xuất',doc:'Sâng chằn'},
+    {zh:'车间',py:'chē jiān',vi:'Xưởng sản xuất',doc:'Chơ chen'},
+    {zh:'工厂',py:'gōng chǎng',vi:'Nhà máy',doc:'Cung chằng'},
+    {zh:'技术',py:'jì shù',vi:'Kỹ thuật',doc:'Chi su'},
+    {zh:'质量',py:'zhì liàng',vi:'Chất lượng',doc:'Trư leng'},
+    {zh:'包装',py:'bāo zhuāng',vi:'Đóng gói',doc:'Bao truang'},
+    {zh:'产品',py:'chǎn pǐn',vi:'Sản phẩm',doc:'Chẳn phìn'},
+    {zh:'总务',py:'zǒng wù',vi:'Tổng vụ',doc:'Trùng u'},
+    {zh:'销售',py:'xiāo shòu',vi:'Kinh doanh',doc:'Xeo sâu'},
+    {zh:'计划',py:'jì huà',vi:'Kế hoạch',doc:'Chi hoa'},
+    {zh:'职务',py:'zhí wù',vi:'Chức vụ',doc:'Trử u'},
+    {zh:'现场',py:'xiàn chǎng',vi:'Hiện trường',doc:'Xen chằng'},
+  ],
+  b10:[
+    {zh:'订单',py:'dìng dān',vi:'Đơn hàng',doc:'Tinh tan'},
+    {zh:'数量',py:'shù liàng',vi:'Số lượng',doc:'Su leng'},
+    {zh:'产量',py:'chǎn liàng',vi:'Sản lượng',doc:'Chẳn leng'},
+    {zh:'总共',py:'zǒng gòng',vi:'Tổng cộng',doc:'Trùng cung'},
+    {zh:'盘点',py:'pán diǎn',vi:'Kiểm kê',doc:'Phản tèn'},
+    {zh:'请假',py:'qǐng jià',vi:'Xin nghỉ phép',doc:'Chĩnh cha'},
+    {zh:'事假',py:'shì jià',vi:'Phép việc riêng',doc:'Sư cha'},
+    {zh:'病假',py:'bìng jià',vi:'Phép bệnh',doc:'Bỉnh cha'},
+    {zh:'婚假',py:'hūn jià',vi:'Phép cưới',doc:'Hủn cha'},
+    {zh:'旷工',py:'kuàng gōng',vi:'Nghỉ không phép',doc:'Khoảng cung'},
+    {zh:'给',py:'gěi',vi:'Cho',doc:'Cẩy'},
+    {zh:'拿',py:'ná',vi:'Lấy, cầm',doc:'Nả'},
+    {zh:'想',py:'xiǎng',vi:'Muốn, suy nghĩ',doc:'Xèng'},
+    {zh:'让',py:'ràng',vi:'Để, cho, nhường',doc:'Rang'},
+    {zh:'帮忙',py:'bāng máng',vi:'Giúp đỡ',doc:'Bang mảng'},
+    {zh:'别',py:'bié',vi:'Đừng',doc:'Bịa'},
+    {zh:'可以',py:'kě yǐ',vi:'Có thể',doc:'Khơ dị'},
+    {zh:'因为',py:'yīn wèi',vi:'Bởi vì',doc:'Yin quây'},
+    {zh:'所以',py:'suǒ yǐ',vi:'Cho nên',doc:'Sua dị'},
+    {zh:'但是',py:'dàn shì',vi:'Nhưng',doc:'Tan sư'},
+    {zh:'如果',py:'rú guǒ',vi:'Nếu như',doc:'Rủ cua'},
+    {zh:'忙',py:'máng',vi:'Bận rộn',doc:'Mảng'},
+  ]
+};
+
+const dialogs = {
+  d1:[
+    {side:'a',zh:'你好！你叫什么名字？',py:'Nǐ hǎo! Nǐ jiào shénme míngzì?',vi:'Xin chào! Bạn tên gì?'},
+    {side:'b',zh:'你好！我叫玉碧。你贵姓？',py:'Nǐ hǎo! Wǒ jiào Yù Bì. Nǐ guì xìng?',vi:'Xin chào! Tôi tên Ngọc Bích. Quý danh của bạn?'},
+    {side:'a',zh:'我姓王。你今年多大？',py:'Wǒ xìng Wáng. Nǐ jīnnián duō dà?',vi:'Tôi họ Vương. Năm nay bạn bao nhiêu tuổi?'},
+    {side:'b',zh:'我今年三十一岁。很高兴认识你！',py:'Wǒ jīnnián sānshíyī suì. Hěn gāoxìng rènshi nǐ!',vi:'Năm nay tôi 31 tuổi. Rất vui được quen biết bạn!'},
+    {side:'a',zh:'我也很高兴认识你！',py:'Wǒ yě hěn gāoxìng rènshi nǐ!',vi:'Tôi cũng rất vui được quen biết bạn!'},
+  ],
+  d2:[
+    {side:'a',zh:'你去上班吗？',py:'Nǐ qù shàng bān ma?',vi:'Bạn đi làm không?'},
+    {side:'b',zh:'我去上班。我上白班。',py:'Wǒ qù shàng bān. Wǒ shàng bái bān.',vi:'Tôi đi làm. Tôi làm ca ngày.'},
+    {side:'a',zh:'昨天你有加班吗？',py:'Zuótiān nǐ yǒu jiābān ma?',vi:'Hôm qua bạn có tăng ca không?'},
+    {side:'b',zh:'昨天我没有加班。',py:'Zuótiān wǒ méiyǒu jiābān.',vi:'Hôm qua tôi không có tăng ca.'},
+    {side:'a',zh:'下周你要上夜班吗？',py:'Xià zhōu nǐ yào shàng yè bān ma?',vi:'Tuần sau bạn có làm ca đêm không?'},
+    {side:'b',zh:'是的，下周我上夜班。',py:'Shì de, xià zhōu wǒ shàng yè bān.',vi:'Đúng vậy, tuần sau tôi làm ca đêm.'},
+  ],
+  d3:[
+    {side:'a',zh:'现在几点了？',py:'Xiànzài jǐ diǎn le?',vi:'Bây giờ mấy giờ rồi?'},
+    {side:'b',zh:'现在八点半了。',py:'Xiànzài bā diǎn bàn le.',vi:'Bây giờ 8 giờ rưỡi rồi.'},
+    {side:'a',zh:'今天是几月几日？',py:'Jīntiān shì jǐ yuè jǐ rì?',vi:'Hôm nay ngày mấy tháng mấy?'},
+    {side:'b',zh:'今天是六月四日，星期四。',py:'Jīntiān shì liù yuè sì rì, xīng qī sì.',vi:'Hôm nay ngày 4 tháng 6, thứ năm.'},
+    {side:'a',zh:'明天你几点上班？',py:'Míngtiān nǐ jǐ diǎn shàng bān?',vi:'Ngày mai bạn mấy giờ đi làm?'},
+    {side:'b',zh:'明天我早上七点半上班。',py:'Míngtiān wǒ zǎoshàng qī diǎn bàn shàng bān.',vi:'Ngày mai tôi 7 giờ rưỡi sáng đi làm.'},
+  ],
+  d4:[
+    {side:'a',zh:'你做什么职务？',py:'Nǐ zuò shénme zhíwù?',vi:'Bạn làm chức vụ gì?'},
+    {side:'b',zh:'我做越南主管，负责仓库和包装部门。',py:'Wǒ zuò Yuènán zhǔguǎn, fùzé cāngkù hé bāozhuāng bùmén.',vi:'Tôi làm chủ quản VN, phụ trách kho và đóng gói.'},
+    {side:'a',zh:'你管理几个员工？',py:'Nǐ guǎnlǐ jǐ gè yuángōng?',vi:'Bạn quản lý mấy công nhân?'},
+    {side:'b',zh:'我管理大概二十个员工。',py:'Wǒ guǎnlǐ dàgài èrshí gè yuángōng.',vi:'Tôi quản lý khoảng 20 công nhân.'},
+    {side:'a',zh:'你们公司有多少人？',py:'Nǐmen gōngsī yǒu duōshǎo rén?',vi:'Công ty bạn có bao nhiêu người?'},
+    {side:'b',zh:'我们公司有三百多人。',py:'Wǒmen gōngsī yǒu sānbǎi duō rén.',vi:'Công ty chúng tôi có hơn 300 người.'},
+  ],
+  d5:[
+    {side:'a',zh:'你在学习什么？',py:'Nǐ zài xuéxí shénme?',vi:'Bạn đang học gì vậy?'},
+    {side:'b',zh:'我在学习中文。',py:'Wǒ zài xuéxí zhōngwén.',vi:'Tôi đang học tiếng Trung.'},
+    {side:'a',zh:'中文难学吗？',py:'Zhōngwén nán xué ma?',vi:'Tiếng Trung khó học không?'},
+    {side:'b',zh:'汉字很难，但是说话还好。',py:'Hànzì hěn nán, dànshì shuōhuà hái hǎo.',vi:'Chữ Hán rất khó, nhưng nói chuyện còn ổn.'},
+    {side:'a',zh:'你学多久了？',py:'Nǐ xué duō jiǔ le?',vi:'Bạn học bao lâu rồi?'},
+    {side:'b',zh:'我学了两个月了，还要努力。',py:'Wǒ xuéle liǎng gè yuè le, hái yào nǔlì.',vi:'Tôi học được 2 tháng rồi, vẫn cần cố gắng thêm.'},
+  ]
+};
+
+const structs = [
+  {title:'① Hỏi tên — 问名字',content:'你叫什么名字？/ 你贵姓？',vi:'Bạn tên gì? / Quý danh của bạn là gì?',ex:'→ 我叫玉碧。/ 我姓阮。'},
+  {title:'② Hỏi tuổi — 问年龄',content:'你多大？/ 你今年多大？/ 你几岁？',vi:'Bạn bao nhiêu tuổi? (thông dụng / trẻ em)',ex:'→ 我二十八岁。/ 我今年三十一岁。'},
+  {title:'③ Hỏi địa điểm — 问地点',content:'你在哪里？/ 你去哪里？',vi:'Bạn ở đâu? / Bạn đi đâu?',ex:'→ 我在仓库。/ 我去上班。'},
+  {title:'④ Hỏi giờ — 问时间',content:'现在几点了？/ 你几点上班？',vi:'Bây giờ mấy giờ? / Bạn mấy giờ đi làm?',ex:'→ 现在八点半。/ 我七点上班。'},
+  {title:'⑤ Phủ định — 不 vs 没有',content:'不 (bù) + ĐT · 没有 (méiyǒu) + ĐT',vi:'不 = phủ định hiện tại/tương lai · 没有 = phủ định quá khứ',ex:'→ 我不去。/ 昨天我没有加班。'},
+  {title:'⑥ Hỏi công việc — 问工作',content:'你做什么工作？/ 你负责什么？',vi:'Bạn làm công việc gì? / Bạn phụ trách gì?',ex:'→ 我做主管。/ 我负责仓库和包装部门。'},
+  {title:'⑦ Hỏi thứ — 问星期',content:'明天是星期几？/ 你星期几上班？',vi:'Ngày mai là thứ mấy? / Bạn đi làm thứ mấy?',ex:'→ 明天是星期五。/ 我星期一到六上班。'},
+  {title:'⑧ Hỏi số điện thoại — 问电话号码',content:'你电话号码是多少？',vi:'Số điện thoại của bạn là bao nhiêu?',ex:'→ 我电话号码是零九八幺八幺八七幺幺。'},
+  {title:'⑨ Có/Không có — 有/没有',content:'你有没有...？/ 有 / 没有',vi:'Bạn có ... không? / Có / Không có',ex:'→ 你有加班吗？/ 我没有加班。'},
+  {title:'⑩ Xin nghỉ phép — 请假',content:'我想请假。/ 我要请事假/病假。',vi:'Tôi muốn xin nghỉ phép. / Tôi xin nghỉ phép việc riêng/bệnh.',ex:'→ 我今天身体不好，要请病假。'},
+];
+
+// ===== SPEAK =====
+function speak(text){
+  if(!window.speechSynthesis)return;
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='zh-CN'; u.rate=0.85;
+  window.speechSynthesis.speak(u);
+}
+
+// ===== BUILD VOCAB TABLE =====
+function buildVocabTable(key){
+  const tb=document.getElementById('tbody-'+key);
+  if(!tb||tb.children.length>0)return;
+  const data=vocabData[key]||[];
+  data.forEach((w,i)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td style="color:#aaa;font-size:11px">${i+1}</td>
+      <td><span class="zh">${w.zh}</span><span class="py">${w.py}</span></td>
+      <td>${w.vi}</td>
+      <td class="doc-read">${w.doc}</td>
+      <td><button class="speak-btn" onclick="speak('${w.zh.replace(/'/g,"\\'")}')">🔊 Nghe</button></td>`;
+    tb.appendChild(tr);
+  });
+}
+
+// ===== BUILD DIALOGS =====
+function buildDialogs(){
+  Object.keys(dialogs).forEach(key=>{
+    const box=document.getElementById(key);
+    if(!box)return;
+    dialogs[key].forEach(row=>{
+      const div=document.createElement('div');
+      div.className='dialog-row'+(row.side==='b'?' r':'');
+      div.innerHTML=`<div class="av av-${row.side}">${row.side==='a'?'A':'Bi'}</div>
+        <div><div class="bbl bbl-${row.side}">
+          <div class="bbl-zh">${row.zh}</div>
+          <div class="bbl-py">${row.py}</div>
+          <div class="bbl-vi">${row.vi}</div>
+          <button class="bbl-speak" onclick="speak('${row.zh.replace(/'/g,"\\'")}')">🔊</button>
+        </div></div>`;
+      box.appendChild(div);
+    });
+  });
+}
+
+// ===== BUILD STRUCTS =====
+function buildStructs(){
+  const el=document.getElementById('struct-list');
+  structs.forEach(s=>{
+    el.innerHTML+=`<div class="struct-box">
+      <div class="struct-title">${s.title}</div>
+      <div class="struct-content">${s.content} <button class="speak-btn" onclick="speak('${s.content.split('/')[0].trim().replace(/'/g,"\\'")}')">🔊</button></div>
+      <div class="struct-vi">${s.vi}</div>
+      <div class="struct-ex">${s.ex}</div>
+    </div>`;
+  });
+}
+
+// ===== FLASHCARD =====
+let fcData=[], fcIdx=0, fcRev=false, fcOk=0, fcBad=0;
+const fcSets={
+  all:[...vocabData.b2,...vocabData.b3,...vocabData.b9],
+  b2:vocabData.b2, b3:vocabData.b3, b9:vocabData.b9
+};
+function shuffle(a){return a.sort(()=>Math.random()-.5)}
+function loadFC(key,btn){
+  document.querySelectorAll('#page-flash .tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  fcData=shuffle([...fcSets[key]]);
+  fcIdx=0; fcRev=false; fcOk=0; fcBad=0;
+  showFCCard();
+}
+function showFCCard(){
+  if(!fcData.length)return;
+  const fc=fcData[fcIdx];
+  document.getElementById('fc-zh').textContent=fc.zh;
+  document.getElementById('fc-py').textContent=fc.py;
+  document.getElementById('fc-vi').textContent=fc.vi;
+  document.getElementById('fc-doc').textContent=fc.doc;
+  document.getElementById('fc-vi').classList.add('hidden');
+  document.getElementById('fc-doc').classList.add('hidden');
+  document.getElementById('fc-hint').style.display='block';
+  document.getElementById('fc-btns').classList.add('hidden');
+  document.getElementById('fc-speak').classList.add('hidden');
+  document.getElementById('fc-prog').textContent=`Thẻ ${fcIdx+1}/${fcData.length}`;
+  document.getElementById('fc-score').textContent=`Đúng: ${fcOk} | Sai: ${fcBad}`;
+  fcRev=false;
+}
+function revealCard(){
+  if(fcRev)return; fcRev=true;
+  document.getElementById('fc-vi').classList.remove('hidden');
+  document.getElementById('fc-doc').classList.remove('hidden');
+  document.getElementById('fc-hint').style.display='none';
+  document.getElementById('fc-btns').classList.remove('hidden');
+  document.getElementById('fc-speak').classList.remove('hidden');
+}
+function nextCard(ok){
+  if(ok)fcOk++;else fcBad++;
+  fcIdx=(fcIdx+1)%fcData.length;
+  showFCCard();
+}
+
+// ===== QUIZ =====
+let qData=[], qIdx=0, qScore=0, qAnswered=false;
+const qSets={
+  all:[...vocabData.b2,...vocabData.b3,...vocabData.b9],
+  b2:vocabData.b2, b3:vocabData.b3, b9:vocabData.b9
+};
+function loadQuiz(key,btn){
+  document.querySelectorAll('#page-quiz .tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  qData=shuffle([...qSets[key]]);
+  qIdx=0; qScore=0; qAnswered=false;
+  document.getElementById('quiz-score-val').textContent=0;
+  document.getElementById('quiz-total-val').textContent=qData.length;
+  showQuiz();
+}
+function showQuiz(){
+  if(!qData.length)return;
+  const q=qData[qIdx];
+  document.getElementById('quiz-q').textContent=q.zh;
+  document.getElementById('quiz-py').textContent=q.py;
+  document.getElementById('quiz-prog').textContent=`Câu ${qIdx+1}/${qData.length}`;
+  document.getElementById('quiz-result').classList.add('hidden');
+  qAnswered=false;
+  // wrong options
+  const pool=qData.filter((_,i)=>i!==qIdx);
+  const wrongs=shuffle(pool).slice(0,3).map(w=>w.vi);
+  const opts=shuffle([q.vi,...wrongs]);
+  const container=document.getElementById('quiz-opts');
+  container.innerHTML='';
+  opts.forEach(opt=>{
+    const btn=document.createElement('button');
+    btn.className='quiz-opt';
+    btn.textContent=opt;
+    btn.onclick=()=>answerQuiz(opt,q.vi,btn);
+    container.appendChild(btn);
+  });
+}
+function answerQuiz(chosen, correct, btn){
+  if(qAnswered)return; qAnswered=true;
+  const res=document.getElementById('quiz-result');
+  if(chosen===correct){
+    btn.classList.add('correct');
+    qScore++;
+    document.getElementById('quiz-score-val').textContent=qScore;
+    res.textContent='✅ Chính xác!';
+    res.style.background=`var(--green-l)`;res.style.color=`var(--green)`;
+  } else {
+    btn.classList.add('wrong');
+    document.querySelectorAll('.quiz-opt').forEach(b=>{if(b.textContent===correct)b.classList.add('correct')});
+    res.textContent=`❌ Sai! Đáp án đúng: ${correct}`;
+    res.style.background=`var(--red-l)`;res.style.color=`var(--red)`;
+  }
+  res.classList.remove('hidden');
+  speak(document.getElementById('quiz-q').textContent);
+}
+function nextQuiz(){
+  if(qIdx<qData.length-1){qIdx++;showQuiz();}
+  else{
+    document.getElementById('quiz-q').textContent='🎉 Hoàn thành!';
+    document.getElementById('quiz-py').textContent=`Điểm: ${qScore}/${qData.length}`;
+    document.getElementById('quiz-opts').innerHTML='';
+    document.getElementById('quiz-result').classList.add('hidden');
+  }
+}
+
+// ===== NAVIGATION =====
+function showPage(p,btn){
+  document.querySelectorAll('.page').forEach(e=>e.classList.remove('active'));
+  document.getElementById('page-'+p).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  if(p==='vocab') buildVocabTable('v2');
+}
+function switchTab(el,id){
+  el.closest('.tabs').querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  ['v2','v3','v4','v5','v7','v8','v9','v10'].forEach(t=>{
+    const e=document.getElementById('tab-'+t);
+    if(e)e.style.display='none';
+  });
+  document.getElementById('tab-'+id).style.display='block';
+  buildVocabTable(id.replace('v','b'));
+}
+function switchDialog(el,id){
+  el.closest('.tabs').querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  ['d1','d2','d3','d4','d5'].forEach(d=>{
+    const e=document.getElementById(d);
+    if(e)e.style.display='none';
+  });
+  document.getElementById(id).style.display='flex';
+}
+
+// ===== INIT =====
+buildDialogs();
+buildStructs();
+loadFC('all',document.querySelector('#page-flash .tab'));
+loadQuiz('all',document.querySelector('#page-quiz .tab'));
+buildVocabTable('b2');
+</script>
+</body>
+</html>
